@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Sampath Mounish — Game Tester & Designer</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --bg:      #F7F5F2;
+    --surface: #FFFFFF;
+    --ink:     #0F0F0F;
+    --ink-2:   #3A3A3A;
+    --ink-3:   #7A7A7A;
+    --accent:  #C8102E;
+    --navy:    #1A1A2E;
+    --rule:    #E2DED8;
+    --tag-bg:  #F0EDE8;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(247,245,242,0.95);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--rule);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 48px; height: 60px;
+  }
+  .nav-logo { font-family: 'DM Serif Display', serif; font-size: 1.1rem; color: var(--ink); text-decoration: none; }
+  .nav-links { display: flex; gap: 32px; list-style: none; }
+  .nav-links a { font-size: 0.78rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-3); text-decoration: none; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--accent); }
+
+  /* ── HERO ── */
+  #hero { display: grid; grid-template-columns: 1fr 1fr; min-height: 92vh; }
+  .hero-left {
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 80px 64px 80px 80px;
+    border-right: 1px solid var(--rule);
+  }
+  .hero-eyebrow { font-family: 'DM Mono', monospace; font-size: 0.7rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); margin-bottom: 20px; }
+  .hero-name { font-family: 'DM Serif Display', serif; font-size: clamp(2.6rem, 4.5vw, 4rem); line-height: 1.05; letter-spacing: -0.02em; color: var(--ink); margin-bottom: 28px; }
+  .hero-name em { font-style: italic; color: var(--accent); }
+  .hero-desc { font-size: 0.98rem; color: var(--ink-2); line-height: 1.8; max-width: 420px; margin-bottom: 40px; }
+  .btn-row { display: flex; gap: 12px; flex-wrap: wrap; }
+  .btn-primary { display: inline-flex; align-items: center; background: var(--accent); color: #fff; font-size: 0.78rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; text-decoration: none; padding: 13px 26px; transition: background 0.2s; }
+  .btn-primary:hover { background: #a00d24; }
+  .btn-ghost { display: inline-flex; align-items: center; border: 1.5px solid var(--ink); color: var(--ink); font-size: 0.78rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; text-decoration: none; padding: 13px 26px; transition: background 0.2s, color 0.2s; }
+  .btn-ghost:hover { background: var(--ink); color: #fff; }
+  .hero-right { display: flex; flex-direction: column; justify-content: center; padding: 80px 80px 80px 64px; background: var(--surface); gap: 32px; }
+  .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; border: 1px solid var(--rule); }
+  .stat-box { padding: 28px 24px; border: 1px solid var(--rule); background: var(--surface); }
+  .stat-num { font-family: 'DM Serif Display', serif; font-size: 2.4rem; line-height: 1; color: var(--accent); margin-bottom: 6px; }
+  .stat-label { font-size: 0.72rem; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-3); }
+  .hero-platforms { font-family: 'DM Mono', monospace; font-size: 0.7rem; color: var(--ink-3); letter-spacing: 0.1em; }
+  .hero-platforms span { color: var(--accent); }
+
+  /* ── SECTION BASE ── */
+  .section { padding: 96px 80px; border-top: 1px solid var(--rule); }
+  .section-label { font-family: 'DM Mono', monospace; font-size: 0.66rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent); margin-bottom: 10px; }
+  .section-title { font-family: 'DM Serif Display', serif; font-size: clamp(1.8rem, 3vw, 2.5rem); line-height: 1.1; letter-spacing: -0.02em; color: var(--ink); margin-bottom: 52px; }
+  .section-title em { font-style: italic; color: var(--ink-3); }
+
+  /* ── ABOUT ── */
+  #about { background: var(--surface); }
+  .about-grid { display: grid; grid-template-columns: 3fr 2fr; gap: 72px; align-items: start; }
+  .about-body { font-size: 0.98rem; color: var(--ink-2); line-height: 1.85; }
+  .about-body p + p { margin-top: 18px; }
+  .sidebar-block { margin-bottom: 32px; }
+  .sidebar-title { font-size: 0.68rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-3); border-bottom: 1px solid var(--rule); padding-bottom: 8px; margin-bottom: 12px; }
+  .tag-list { display: flex; flex-wrap: wrap; gap: 7px; }
+  .tag { background: var(--tag-bg); color: var(--ink-2); font-size: 0.74rem; font-weight: 500; padding: 5px 11px; border: 1px solid var(--rule); }
+
+  /* ── PROJECTS ── */
+  #projects { background: var(--bg); }
+  .projects-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  .project-card { background: var(--surface); padding: 36px; border: 1px solid var(--rule); position: relative; transition: border-color 0.2s; }
+  .project-card:hover { border-color: var(--accent); }
+  .project-card::before { content:''; position:absolute; top:0; left:0; width:3px; height:0; background:var(--accent); transition:height 0.3s; }
+  .project-card:hover::before { height:100%; }
+  .project-engine { font-family: 'DM Mono', monospace; font-size: 0.66rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); margin-bottom: 12px; }
+  .project-title { font-family: 'DM Serif Display', serif; font-size: 1.3rem; line-height: 1.2; color: var(--ink); margin-bottom: 18px; }
+  .video-label { font-family: 'DM Mono', monospace; font-size: 0.63rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-3); margin-bottom: 8px; }
+  .video-wrap { position: relative; width: 100%; padding-bottom: 56.25%; background: #000; margin-bottom: 22px; overflow: hidden; }
+  .video-wrap iframe { position: absolute; top:0; left:0; width:100%; height:100%; border:none; }
+  .project-desc { font-size: 0.88rem; color: var(--ink-2); line-height: 1.75; margin-bottom: 10px; }
+  .project-note { font-size: 0.8rem; color: var(--ink-3); line-height: 1.7; margin-bottom: 20px; }
+  .tag-row { display: flex; flex-wrap: wrap; gap: 6px; }
+  .proj-tag { font-size: 0.68rem; font-weight: 500; letter-spacing: 0.05em; background: var(--tag-bg); color: var(--ink-3); padding: 4px 10px; border: 1px solid var(--rule); }
+
+  /* ── BUG REPORTS ── */
+  #bugs { background: var(--navy); color: #fff; }
+  #bugs .section-label { color: var(--accent); }
+  #bugs .section-title { color: #fff; }
+  .bugs-intro { font-size: 0.97rem; color: rgba(255,255,255,0.62); line-height: 1.8; max-width: 620px; margin-bottom: 44px; }
+  .bugs-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 24px; }
+  .bug-card { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); padding: 28px; transition: background 0.2s; }
+  .bug-card:hover { background: rgba(255,255,255,0.09); }
+  .bug-id { font-family: 'DM Mono', monospace; font-size: 0.66rem; letter-spacing: 0.14em; color: var(--accent); margin-bottom: 8px; }
+  .bug-title { font-family: 'DM Serif Display', serif; font-size: 1rem; color: #fff; margin-bottom: 10px; line-height: 1.3; }
+  .bug-desc { font-size: 0.83rem; color: rgba(255,255,255,0.58); line-height: 1.7; margin-bottom: 14px; }
+  .bug-video-wrap { position: relative; width: 100%; padding-bottom: 56.25%; background: rgba(0,0,0,0.5); margin-bottom: 14px; overflow: hidden; }
+  .bug-video-wrap iframe { position: absolute; top:0; left:0; width:100%; height:100%; border:none; }
+  .bug-meta { display: flex; gap: 8px; flex-wrap: wrap; }
+  .bug-badge { font-size: 0.65rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; padding: 3px 9px; border: 1px solid; }
+  .sev-high   { color: #f87171; border-color: #f87171; }
+  .sev-medium { color: #fbbf24; border-color: #fbbf24; }
+  .sev-low    { color: #60a5fa; border-color: #60a5fa; }
+  .plat       { color: rgba(255,255,255,0.45); border-color: rgba(255,255,255,0.2); }
+  .bugs-footer { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1); padding: 22px 28px; display: flex; align-items: center; justify-content: space-between; }
+  .bugs-footer-text { font-size: 0.88rem; color: rgba(255,255,255,0.58); }
+  .bugs-footer-text strong { color: #fff; }
+  .live-badge { display: flex; align-items: center; gap: 8px; font-family: 'DM Mono', monospace; font-size: 0.66rem; letter-spacing: 0.12em; text-transform: uppercase; color: #4ade80; }
+  .live-dot { width: 7px; height: 7px; background: #4ade80; border-radius: 50%; animation: blink 2s infinite; }
+  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.25} }
+
+  /* ── CERTS ── */
+  #certs { background: var(--surface); }
+  .certs-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .cert-row { display: flex; align-items: flex-start; gap: 18px; padding: 24px 28px; background: var(--bg); border: 1px solid var(--rule); transition: border-color 0.2s; }
+  .cert-row:hover { border-color: var(--accent); }
+  .cert-icon { width: 36px; height: 36px; flex-shrink: 0; background: var(--accent); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 0.7rem; font-weight: 700; font-family: 'DM Mono', monospace; }
+  .cert-name { font-size: 0.88rem; font-weight: 500; color: var(--ink); margin-bottom: 3px; line-height: 1.4; }
+  .cert-issuer { font-size: 0.72rem; color: var(--ink-3); font-family: 'DM Mono', monospace; letter-spacing: 0.05em; }
+
+  /* ── CONTACT ── */
+  #contact { background: var(--bg); }
+  .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: start; }
+  .contact-intro { font-size: 0.97rem; color: var(--ink-2); line-height: 1.8; margin-bottom: 28px; }
+  .contact-links { display: flex; flex-direction: column; gap: 8px; }
+  .contact-link { display: flex; align-items: center; justify-content: space-between; padding: 18px 22px; background: var(--surface); border: 1px solid var(--rule); text-decoration: none; color: var(--ink); transition: border-color 0.2s; }
+  .contact-link:hover { border-color: var(--accent); }
+  .cl-type { font-size: 0.65rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-3); margin-bottom: 2px; }
+  .cl-val { font-size: 0.88rem; color: var(--ink); }
+  .cl-arrow { color: var(--accent); font-size: 1rem; }
+  .avail-card { background: var(--surface); border: 1px solid var(--rule); padding: 36px; }
+  .avail-title { font-family: 'DM Serif Display', serif; font-size: 1.4rem; color: var(--ink); margin-bottom: 18px; }
+  .avail-body { font-size: 0.88rem; color: var(--ink-2); line-height: 1.85; }
+  .avail-body p { margin-bottom: 13px; }
+
+  /* ── FOOTER ── */
+  footer { border-top: 1px solid var(--rule); background: var(--surface); padding: 28px 80px; display: flex; align-items: center; justify-content: space-between; }
+  .footer-name { font-family: 'DM Serif Display', serif; font-size: 0.95rem; color: var(--ink); }
+  .footer-copy { font-size: 0.72rem; color: var(--ink-3); font-family: 'DM Mono', monospace; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 880px) {
+    nav { padding: 0 20px; }
+    .nav-links { display: none; }
+    #hero, .about-grid, .projects-grid, .bugs-grid, .certs-grid, .contact-grid { grid-template-columns: 1fr; }
+    .hero-left, .hero-right { padding: 52px 24px; }
+    .hero-left { border-right: none; border-bottom: 1px solid var(--rule); }
+    .section { padding: 64px 24px; }
+    footer { padding: 24px; flex-direction: column; gap: 6px; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#hero">Sampath Mounish</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#bugs">Bug Reports</a></li>
+    <li><a href="#certs">Certificates</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-left">
+    <p class="hero-eyebrow">Game Tester · Level Designer · QA Enthusiast</p>
+    <h1 class="hero-name">Dabbiru<br/><em>Sampath</em><br/>Mounish</h1>
+    <p class="hero-desc">Computer Science student and Rockstar Games enthusiast building a career at the intersection of game development and quality assurance — with hands-on experience in Unreal Engine 5, Unity, level design, and real-world bug hunting in GTA V &amp; RDR2.</p>
+    <div class="btn-row">
+      <a class="btn-primary" href="#projects">View My Work</a>
+      <a class="btn-ghost" href="#contact">Get In Touch</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="stats-grid">
+      <div class="stat-box"><div class="stat-num">4+</div><div class="stat-label">Bugs Found in GTA V</div></div>
+      <div class="stat-box"><div class="stat-num">2</div><div class="stat-label">Game Projects Shipped</div></div>
+      <div class="stat-box"><div class="stat-num">6</div><div class="stat-label">Industry Certificates</div></div>
+      <div class="stat-box"><div class="stat-num">UE5</div><div class="stat-label">&amp; Unity Developer</div></div>
+    </div>
+    <p class="hero-platforms">Platforms tested &nbsp;/&nbsp; <span>PC · PlayStation · Xbox</span></p>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about" class="section">
+  <p class="section-label">01 — About</p>
+  <h2 class="section-title">Who I Am &amp;<br/><em>What Drives Me</em></h2>
+  <div class="about-grid">
+    <div class="about-body">
+      <p>I'm a final-year Computer Science &amp; Engineering student at GITAM University, Visakhapatnam — and a lifelong Rockstar Games fan who has spent hundreds of hours not just playing GTA V and Red Dead Redemption 2, but studying them. The way open worlds are constructed, how NPCs behave, where physics systems break down — these are the things that fascinate me.</p>
+      <p>That obsession led me to start formally documenting bugs I find in Rockstar titles, treating every session as a QA exercise. I have already identified 4 reproducible bugs in GTA V and I'm actively expanding that research into RDR2.</p>
+      <p>On the development side, I've recreated a full environment from Uncharted: Drake's Fortune in Unreal Engine 5 and shipped a complete 2D platformer in Unity — giving me a developer's understanding of why bugs happen, not just that they exist. I believe the best game testers are the ones who genuinely love games and understand how they're made.</p>
+    </div>
+    <div>
+      <div class="sidebar-block">
+        <p class="sidebar-title">Core Skills</p>
+        <div class="tag-list">
+          <span class="tag">Unreal Engine 5</span><span class="tag">Unity</span>
+          <span class="tag">Level Design</span><span class="tag">Game Design</span>
+          <span class="tag">Manual Testing</span><span class="tag">Bug Documentation</span>
+          <span class="tag">Exploratory Testing</span><span class="tag">C (basic)</span>
+        </div>
+      </div>
+      <div class="sidebar-block">
+        <p class="sidebar-title">Known Tools</p>
+        <div class="tag-list">
+          <span class="tag">Unreal Engine 5</span><span class="tag">Unity</span>
+          <span class="tag">Jira</span><span class="tag">OBS Studio</span>
+        </div>
+      </div>
+      <div class="sidebar-block">
+        <p class="sidebar-title">Platforms</p>
+        <div class="tag-list">
+          <span class="tag">PC (Windows)</span><span class="tag">PlayStation</span><span class="tag">Xbox</span>
+        </div>
+      </div>
+      <div class="sidebar-block">
+        <p class="sidebar-title">Education</p>
+        <div class="tag-list">
+          <span class="tag">B.Tech — CSE</span><span class="tag">GITAM University</span><span class="tag">2022 – 2026</span>
+        </div>
+      </div>
+      <div class="sidebar-block">
+        <p class="sidebar-title">Based In</p>
+        <div class="tag-list"><span class="tag">Visakhapatnam, India</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects" class="section">
+  <p class="section-label">02 — Projects</p>
+  <h2 class="section-title">What I've<br/><em>Built</em></h2>
+  <div class="projects-grid">
+    <div class="project-card">
+      <p class="project-engine">Unreal Engine 5</p>
+      <h3 class="project-title">Uncharted: Drake's Fortune — Chapter 2 Forest Scene Recreation</h3>
+      <p class="video-label">▶ Project Showcase</p>
+      <div class="video-wrap">
+        <iframe src="https://www.youtube.com/embed/6AU73rW13tY" allowfullscreen loading="lazy" title="Unreal Engine Forest Recreation"></iframe>
+      </div>
+      <p class="project-desc">A faithful recreation of the iconic jungle forest environment from Naughty Dog's Uncharted: Drake's Fortune, built entirely in Unreal Engine 5. Focused on matching environmental storytelling, foliage density, lighting mood, terrain topology, and spatial layout using Lumen GI, Nanite, and UE5's Foliage system.</p>
+      <p class="project-note">This project deepened my understanding of how AAA studios construct open-world geometry — directly sharpening my ability to spot level-specific visual and collision bugs during QA.</p>
+      <div class="tag-row">
+        <span class="proj-tag">Environment Design</span><span class="proj-tag">Lumen GI</span>
+        <span class="proj-tag">Foliage System</span><span class="proj-tag">Landscape Tools</span><span class="proj-tag">Nanite</span>
+      </div>
+    </div>
+    <div class="project-card">
+      <p class="project-engine">Unity</p>
+      <h3 class="project-title">2D Platformer — Original Game</h3>
+      <p class="video-label">▶ Project Showcase</p>
+      <div class="video-wrap">
+        <iframe src="https://www.youtube.com/embed/eyYz3Y47jxE" allowfullscreen loading="lazy" title="Unity 2D Platformer"></iframe>
+      </div>
+      <p class="project-desc">Designed and shipped a complete 2D platformer from concept to playable build — covering game design, level design, player mechanics, enemy AI, checkpoint systems, and progressive difficulty.</p>
+      <p class="project-note">Building and breaking my own game taught me how to see both sides of QA — as the developer who creates systems and the tester who stress-tests them.</p>
+      <div class="tag-row">
+        <span class="proj-tag">Game Design</span><span class="proj-tag">Level Design</span>
+        <span class="proj-tag">Physics</span><span class="proj-tag">Enemy AI</span><span class="proj-tag">Self-QA</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BUG REPORTS -->
+<section id="bugs" class="section">
+  <p class="section-label">03 — Bug Reports</p>
+  <h2 class="section-title">Real Bugs Found in<br/><em>Rockstar Titles</em></h2>
+  <p class="bugs-intro">I treat every GTA V and RDR2 session as a live QA exercise — hunting for reproducible defects and documenting them to professional standards: severity ratings, platform specifics, and step-by-step reproduction cases. Watch the proof videos embedded below.</p>
+  <div class="bugs-grid">
+    <div class="bug-card">
+      <p class="bug-id">BUG-GTA-001 &nbsp;·&nbsp; March 28, 2026</p>
+      <h3 class="bug-title">Heavily Damaged Front Tire Steering Failure Gets Overridden by Franklin's Special Ability</h3>
+      <p class="bug-desc">When the front tire is heavily damaged, the vehicle fails to turn left during normal driving. However, activating Franklin's special ability restores steering completely — as if no damage occurred. The problem returns immediately once the ability is deactivated.</p>
+      <p class="bug-desc" style="font-size:0.78rem; opacity:0.5;">Platform: GTA V · PC · v1.0.1013.33 &nbsp;·&nbsp; Location: Any open world location &nbsp;·&nbsp; Frequency: 10/10 attempts</p>
+      <div class="bug-video-wrap">
+        <iframe src="https://www.youtube.com/embed/ySXUPrdUvXQ" allowfullscreen loading="lazy" title="Bug 001 Proof"></iframe>
+      </div>
+      <div class="bug-meta" style="justify-content:space-between; align-items:center;">
+        <div style="display:flex; gap:8px; flex-wrap:wrap;">
+          <span class="bug-badge sev-high">Major</span>
+          <span class="bug-badge plat">PC</span>
+          <span class="bug-badge plat">10/10 Reproducible</span>
+        </div>
+        <a href="Bug_Report_GTA_001.pdf" download style="display:inline-flex; align-items:center; gap:6px; font-family:'DM Mono',monospace; font-size:0.65rem; letter-spacing:0.1em; text-transform:uppercase; color:#C8102E; text-decoration:none; border:1px solid #C8102E; padding:5px 12px; margin-top:4px; transition:background 0.2s, color 0.2s;" onmouseover="this.style.background='#C8102E';this.style.color='#fff'" onmouseout="this.style.background='transparent';this.style.color='#C8102E'">⬇ Report PDF</a>
+      </div>
+    </div>
+    <div class="bug-card">
+      <p class="bug-id">BUG-GTA-002 &nbsp;·&nbsp; March 28, 2026</p>
+      <h3 class="bug-title">Invisible Wall in Parking Lot Blocks Cop Damage and Prevents Player from Shooting Outward</h3>
+      <p class="bug-desc">An invisible wall inside a parking lot completely blocks incoming police damage and prevents the player from firing outward. The player becomes trapped with cops surrounding the only exit, forcing them to absorb heavy damage with no viable escape route.</p>
+      <p class="bug-desc" style="font-size:0.78rem; opacity:0.5;">Platform: GTA V · PC · v1.0.1013.33 &nbsp;·&nbsp; Location: Parking lot (see footage) &nbsp;·&nbsp; Frequency: 10/10 attempts</p>
+      <div class="bug-video-wrap">
+        <iframe src="https://www.youtube.com/embed/gamKqW3ugfo" allowfullscreen loading="lazy" title="Bug 002 Proof"></iframe>
+      </div>
+      <div class="bug-meta" style="justify-content:space-between; align-items:center;">
+        <div style="display:flex; gap:8px; flex-wrap:wrap;">
+          <span class="bug-badge sev-high">Major</span>
+          <span class="bug-badge plat">PC</span>
+          <span class="bug-badge plat">10/10 Reproducible</span>
+        </div>
+        <a href="Bug_Report_GTA_002.pdf" download style="display:inline-flex; align-items:center; gap:6px; font-family:'DM Mono',monospace; font-size:0.65rem; letter-spacing:0.1em; text-transform:uppercase; color:#C8102E; text-decoration:none; border:1px solid #C8102E; padding:5px 12px; margin-top:4px; transition:background 0.2s, color 0.2s;" onmouseover="this.style.background='#C8102E';this.style.color='#fff'" onmouseout="this.style.background='transparent';this.style.color='#C8102E'">⬇ Report PDF</a>
+      </div>
+    </div>
+    <div class="bug-card">
+      <p class="bug-id">BUG-GTA-003 &nbsp;·&nbsp; March 28, 2026</p>
+      <h3 class="bug-title">Bike Recovery Animation Skipped on Slopes — Angled Bike Position Causes Player to Teleport Onto Bike Instantly</h3>
+      <p class="bug-desc">After crashing a bike on a slope, the game fails to calculate the angled recovery approach. Instead of performing a proper lifting animation, the player instantly teleports onto the bike and it stands upright on its own — completely skipping the mounting sequence.</p>
+      <p class="bug-desc" style="font-size:0.78rem; opacity:0.5;">Platform: GTA V · PC · v1.0.1013.33 &nbsp;·&nbsp; Location: Any sloped surface &nbsp;·&nbsp; Frequency: 5/10 attempts</p>
+      <div class="bug-video-wrap">
+        <iframe src="https://www.youtube.com/embed/EuZyTG7okWQ" allowfullscreen loading="lazy" title="Bug 003 Proof"></iframe>
+      </div>
+      <div class="bug-meta" style="justify-content:space-between; align-items:center;">
+        <div style="display:flex; gap:8px; flex-wrap:wrap;">
+          <span class="bug-badge sev-low">Minor</span>
+          <span class="bug-badge plat">PC</span>
+          <span class="bug-badge plat">5/10 Reproducible</span>
+        </div>
+        <a href="Bug_Report_GTA_003.pdf" download style="display:inline-flex; align-items:center; gap:6px; font-family:'DM Mono',monospace; font-size:0.65rem; letter-spacing:0.1em; text-transform:uppercase; color:#C8102E; text-decoration:none; border:1px solid #C8102E; padding:5px 12px; margin-top:4px; transition:background 0.2s, color 0.2s;" onmouseover="this.style.background='#C8102E';this.style.color='#fff'" onmouseout="this.style.background='transparent';this.style.color='#C8102E'">⬇ Report PDF</a>
+      </div>
+    </div>
+    <div class="bug-card">
+      <p class="bug-id">BUG-GTA-004 &nbsp;·&nbsp; March 28, 2026</p>
+      <h3 class="bug-title">Attempting to Join Quick Heist Teleports Online Character Under the Map into a Skydiving State</h3>
+      <p class="bug-desc">The Quick Heist teleport system sends the character to an incorrect spawn point beneath the map geometry. The character spawns in a skydiving state with a parachute equipped — the entire map is visible above them. A hidden skydiving spawn point appears to be accidentally triggered by the heist matchmaking system.</p>
+      <p class="bug-desc" style="font-size:0.78rem; opacity:0.5;">Platform: GTA V · PC · v1.0.1013.33 &nbsp;·&nbsp; Location: GTA Online — any road &nbsp;·&nbsp; Frequency: 2/5 attempts</p>
+      <div class="bug-video-wrap">
+        <iframe src="https://www.youtube.com/embed/0M8We-IpchU" allowfullscreen loading="lazy" title="Bug 004 Proof"></iframe>
+      </div>
+      <div class="bug-meta" style="justify-content:space-between; align-items:center;">
+        <div style="display:flex; gap:8px; flex-wrap:wrap;">
+          <span class="bug-badge sev-high">Major</span>
+          <span class="bug-badge plat">PC · GTA Online</span>
+          <span class="bug-badge plat">2/5 Reproducible</span>
+        </div>
+        <a href="Bug_Report_GTA_004.pdf" download style="display:inline-flex; align-items:center; gap:6px; font-family:'DM Mono',monospace; font-size:0.65rem; letter-spacing:0.1em; text-transform:uppercase; color:#C8102E; text-decoration:none; border:1px solid #C8102E; padding:5px 12px; margin-top:4px; transition:background 0.2s, color 0.2s;" onmouseover="this.style.background='#C8102E';this.style.color='#fff'" onmouseout="this.style.background='transparent';this.style.color='#C8102E'">⬇ Report PDF</a>
+      </div>
+    </div>
+  </div>
+  <div class="bugs-footer">
+    <p class="bugs-footer-text"><strong>RDR2 research in progress</strong> — actively documenting NPC schedule anomalies, mission scripting edge cases &amp; physics defects.</p>
+    <div class="live-badge"><div class="live-dot"></div>Research Active</div>
+  </div>
+</section>
+
+<!-- CERTIFICATES -->
+<section id="certs" class="section">
+  <p class="section-label">04 — Certifications</p>
+  <h2 class="section-title">Industry<br/><em>Credentials</em></h2>
+  <div class="certs-grid">
+    <div class="cert-row">
+      <div class="cert-icon">QA</div>
+      <div><p class="cert-name">ISTQB Certified Tester Foundation Level (CTFL)</p><p class="cert-issuer">Udemy</p></div>
+    </div>
+    <div class="cert-row">
+      <div class="cert-icon">UE</div>
+      <div><p class="cert-name">Fundamentals of Unreal Engine</p><p class="cert-issuer">Coursera</p></div>
+    </div>
+    <div class="cert-row">
+      <div class="cert-icon">GD</div>
+      <div><p class="cert-name">Introduction to Game Design with Unreal Engine</p><p class="cert-issuer">Coursera</p></div>
+    </div>
+    <div class="cert-row">
+      <div class="cert-icon">LD</div>
+      <div><p class="cert-name">Fundamentals of Level Design with Unreal Engine</p><p class="cert-issuer">Coursera</p></div>
+    </div>
+    <div class="cert-row">
+      <div class="cert-icon">U1</div>
+      <div><p class="cert-name">Game Design &amp; Development 1: 2D Shooter (Unity)</p><p class="cert-issuer">Coursera</p></div>
+    </div>
+    <div class="cert-row">
+      <div class="cert-icon">U2</div>
+      <div><p class="cert-name">Game Design &amp; Development 2: 2D Platformer (Unity)</p><p class="cert-issuer">Coursera</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="section">
+  <p class="section-label">05 — Contact</p>
+  <h2 class="section-title">Let's<br/><em>Connect</em></h2>
+  <div class="contact-grid">
+    <div>
+      <p class="contact-intro">I'm actively looking for game tester and QA roles — particularly with studios that care as deeply about player experience as Rockstar Games does. If you're hiring or want to see my full bug report portfolio, reach out.</p>
+      <div class="contact-links">
+        <a class="contact-link" href="/cdn-cgi/l/email-protection#5023313d203124383d3f253e392338696510373d31393c7e333f3d">
+          <div><p class="cl-type">Email</p><p class="cl-val"><span class="__cf_email__" data-cfemail="3c4f5d514c5d485451534952554f5405097c5b515d5550125f5351">[email&#160;protected]</span></p></div>
+          <span class="cl-arrow">→</span>
+        </a>
+        <a class="contact-link" href="tel:+919100720509">
+          <div><p class="cl-type">Phone</p><p class="cl-val">+91 9100720509</p></div>
+          <span class="cl-arrow">→</span>
+        </a>
+        <a class="contact-link" href="https://linkedin.com/in/sampathmounish" target="_blank">
+          <div><p class="cl-type">LinkedIn</p><p class="cl-val">linkedin.com/in/sampathmounish</p></div>
+          <span class="cl-arrow">→</span>
+        </a>
+        <div class="contact-link" style="cursor:default">
+          <div><p class="cl-type">Location</p><p class="cl-val">Visakhapatnam, India</p></div>
+        </div>
+      </div>
+    </div>
+    <div class="avail-card">
+      <h3 class="avail-title">Available For</h3>
+      <div class="avail-body">
+        <p>🎮 &nbsp;<strong>Game Tester / QA Analyst</strong> — full-time, contract, or remote positions at game studios.</p>
+        <p>🔍 &nbsp;<strong>Bug Report Portfolio</strong> — detailed documentation of all 4 confirmed GTA V bugs plus ongoing RDR2 research available on request.</p>
+        <p>🎓 &nbsp;<strong>Graduating 2026</strong> — available immediately for entry-level QA roles or internships.</p>
+        <p>🌍 &nbsp;<strong>Open to relocation</strong> for the right opportunity — including international studios.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span class="footer-name
